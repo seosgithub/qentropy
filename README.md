@@ -1,0 +1,11 @@
+#quentropy
+Many experiments require a real-time quantum entropy source; i.e. an entropy source that generates values that are undefined until they are acquired and you acquire the values in close temporal proximity to when they are used in decisions.  They cannot be known ahead of time, not even in a black-box fashion.  Most operating systems generate entropy from sources like cpu-ticks till startup, seek times, keyboard input, mouse input, etc. While these sources are good for most purposes, and most likely have a quantum random nature, operating systems still rely on non-realtime generation for these random numbers.  They are generally stored in a queue for use in the future or tained in generation via a pseudo-random hash function. This is fine for even the most secure cryptographic applications; however, qentropy was not designed for these applications.
+
+##Usage
+``quentropy`` will output either a 0-1 to stdout at the framerate your camera supports; for most individuals this will be at 30 fps. There are no guarantees on this distribution, only that the underlying generator for the distribution is partially quantum random. I.e. you may have systematic bias for 0 or 1 but the outcome is still undefined until it comes into existance. There are no newline characters in the output. Additionally, if your camera has no degrees of freedom per pixel, e.g. you block the lens and it enters some kind of noise-filter mode, or it has a noise filter in software that removes all heat noise, then you will not have a quantum random source. Your mileage may vary.
+
+##How does it work?
+Qentropy relies on your webcam and bases its random numbers on certain pixels in your webcams image. These pixels fluctate from heat-noise which is a, presumably, fully quantum source. Furethermore, if you are sitting in front of your camera, then we know it's pretty close to a real-time quantum random source as (non-brain-dead individuals) are a non-deterministic quantum-random system.
+
+##Supported platforms?
+qentropy relies on the opencv2 library. It works with most operating systems, please download it at http://opencv.org/downloads.html. You may also want to check your package repository for your operating system. As a quick tip, you usually download the zip file from opencv and run `cmake .` then `make` and finally `make install`.
